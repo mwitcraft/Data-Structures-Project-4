@@ -27,4 +27,9 @@ int main(){
 	// 		}
 	// 	}
 	// }
+
+	ttree* myTree = new ttree();
+	myTree->insert("Mason");
+
+	myTree->display();
 }
