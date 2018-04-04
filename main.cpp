@@ -5,31 +5,41 @@
 using namespace std;
 
 int main(){
-	// char command;
-	// string input;
-
-	// while(!cin.eof()){
-	// 	cin >> command;
-	// 	switch(command){
-	// 		case('I'):{
-	// 			cin >> input;
-	// 			cout << "Insert: " << input << endl;
-	// 			break;
-	// 		}
-	// 		case('S'):{
-	// 			cin >> input;
-	// 			cout << "Search: " << input << endl;
-	// 			break;
-	// 		}
-	// 		case('D'):{
-	// 			cout << "Display" << endl;
-	// 			break;
-	// 		}
-	// 	}
-	// }
-
 	ttree* myTree = new ttree();
-	myTree->insert("Mason");
 
-	myTree->display();
+	char command;
+	string input;
+
+	while(!cin.eof()){
+		cin >> command;
+		switch(command){
+			case('I'):{
+				cin >> input;
+				// cout << "I: " << input << endl;
+				myTree->insert(input);
+				break;
+			}
+			case('S'):{
+				cin >> input;
+				cout << "Search: " << input << endl;
+				break;
+			}
+			case('D'):{
+				// cout << "D" << endl;
+				cout << "----------------------" << endl;
+				myTree->display();
+				break;
+			}
+		}
+	}
+
+	// ttree* myTree = new ttree();
+	// myTree->insert("XXXXX");
+	// myTree->insert("XZZZZ");
+	// myTree->insert("XYYYY");
+	// myTree->insert("XBBBB");
+	// myTree->insert("APPLE");
+
+
+	// myTree->display();
 }

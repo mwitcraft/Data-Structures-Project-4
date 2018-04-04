@@ -55,6 +55,7 @@ void ttree::insert(string key){
 			}
 			else{ //We need a new level
 				newLevel = new ttree(_maxDepth, _currentDepth + 1);
+				//This right here may cause problems, idk how this is updated throughout
 				list<string> oldWords = (*(_tnodes[index].getWords()));
 
 				//NEED TO WRITE THIS PORTION OF CODE
@@ -76,13 +77,43 @@ void ttree::insert(string key){
 
 void ttree::display(){
 	for(int i = 0; i < 26; ++i){
-		char c = i + 'A';
-		if(_tnodes[i].getWords() == NULL){
-			cout << c << ": NULL" << endl;
-		}
-		else{
-			cout << c << ": ";
+		if(_tnodes[i].getWords() != NULL){
+			for(int j = 0; j < 3 * (_currentDepth - 1); ++j){
+				cout << " ";
+			}
+			cout << (char)('A' + i) << " ";
 			_tnodes[i].display();
+			// for(int k = 0; k < _tnodes[i].getWords()->size(); ++k){
+			// 	cout << " ";
+			// 	_tnodes[i].display();
+			// }
+			cout << endl;
+		}
+		else if(_tnodes[i].getNext() != NULL){
+			for(int j = 0; j < 3 * (_currentDepth - 1); ++j){
+				cout << " ";
+			}
+			cout << (char)('A' + i) << endl;
+			_tnodes[i].getNext()->display();
 		}
 	}
+
+
+
+
+	// for(int i = 0; i < 26; ++i){
+	// 	char c = i + 'A';
+	// 	if(_tnodes[i].getWords() == NULL){
+	// 		if(_tnodes[i].getNext() != NULL){
+	// 			_tnodes[i].getNext()->display();
+	// 		}
+	// 		else{
+	// 			cout << c << ": NULL" << endl;
+	// 		}
+	// 	}
+	// 	else{
+	// 		cout << c << ": ";
+	// 		_tnodes[i].display();
+	// 	}
+	// }
 }

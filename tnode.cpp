@@ -118,6 +118,7 @@ bool tnode::insert(string key, int level){
 			}
 		}
 	}
+	return true;
 
 
 
@@ -142,11 +143,16 @@ string tnode::operator[](int index){
 }
 
 void tnode::display(){
+	if(_words == NULL){
+		cout << "NULL" << endl;
+		return;
+	}
+
 	list<string>::iterator it;
 	int i = 0;
 
 	for(it = _words->begin(); it != _words->end(); ++it, ++i){
-		cout << i << ": " << (*it) << endl;
+		cout << (*it) << " ";
 	}
 }
 
