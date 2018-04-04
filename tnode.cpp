@@ -150,15 +150,15 @@ void tnode::display(){
 	}
 }
 
-int main(){
-	tnode* myNode = new tnode();
+// int main(){
+// 	tnode* myNode = new tnode();
 
-	myNode->insert("BLACK", 5);
-	myNode->insert("BLACKIRON", 5);
-	myNode->insert("BLACKSMITH", 5);
-	myNode->insert("BLA", 5);
-	myNode->display();
-}
+// 	myNode->insert("BLACK", 5);
+// 	myNode->insert("BLACKIRON", 5);
+// 	myNode->insert("BLACKSMITH", 5);
+// 	myNode->insert("BLA", 5);
+// 	myNode->display();
+// }
 
 
 

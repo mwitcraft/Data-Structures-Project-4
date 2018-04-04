@@ -4,7 +4,7 @@
 #include "tnode.cpp"
 using namespace std;
 
-// class tnode;
+class tnode;
 
 class ttree{
 private:
