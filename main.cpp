@@ -10,36 +10,28 @@ int main(){
 	char command;
 	string input;
 
+	cin >> command;
 	while(!cin.eof()){
-		cin >> command;
 		switch(command){
 			case('I'):{
 				cin >> input;
-				// cout << "I: " << input << endl;
-				myTree->insert(input);
+				cout << "I: " << input << endl;
+				// myTree->insert(input);
 				break;
 			}
 			case('S'):{
 				cin >> input;
 				cout << "Search: " << input << endl;
+				cout << "S: " << input << endl;				
 				break;
 			}
 			case('D'):{
-				// cout << "D" << endl;
-				cout << "----------------------" << endl;
-				myTree->display();
+				cout << "D" << endl;
+				// cout << "----------------------" << endl;
+				// myTree->display();
 				break;
 			}
 		}
+		cin >> command;
 	}
-
-	// ttree* myTree = new ttree();
-	// myTree->insert("XXXXX");
-	// myTree->insert("XZZZZ");
-	// myTree->insert("XYYYY");
-	// myTree->insert("XBBBB");
-	// myTree->insert("APPLE");
-
-
-	// myTree->display();
 }
