@@ -36,6 +36,7 @@ public:
 
 	//MY SHIT
 	void display();
+	string* getWordsAsArray();
 
 };
 
@@ -76,13 +77,21 @@ bool tnode::insert(string key, int level){
 		return true;
 	}
 
+	list<string>::iterator it;
+	for(it = _words->begin(); it != _words->end(); ++it){
+		string compWord = (*it);
+		if(compWord[level] == key[level]){
+			return false;
+		}
+	}
+
 
 
 
 
 	// string compWord = _words->front();
-	string pre1 = key.substr(0, level);
-	string pre2 = _words->front().substr(0, level);
+	// string pre1 = key.substr(0, level + 1);
+	// string pre2 = _words->front().substr(0, level + 1);
 
 	// for(int i = 0; i < level; ++i){
 	// 	cout << "key @ " << i << ": " << key[i] << endl;
@@ -96,9 +105,9 @@ bool tnode::insert(string key, int level){
 	// cout << "pre2: " << pre2 << endl;
 
 
-	if(pre1 == pre2){
-		return false;
-	}
+	// if(pre1 == pre2){
+	// 	return false;
+	// }
 
 	if(key < _words->front()){
 		_words->push_front(key);
@@ -130,6 +139,13 @@ void tnode::setNext(ttree* nextLevel){
 
 void tnode::setWords(list<string>* words){
 	_words = words;
+	// if(words == NULL){
+	// 	return;
+	// }
+	// list<string>::iterator it;
+	// for(it = words.begin(); it != words.end(); ++it){
+	// 	_words->push_back((*it));
+	// }
 }
 
 void tnode::operator=(tnode& tn){
@@ -153,6 +169,15 @@ void tnode::display(){
 
 	for(it = _words->begin(); it != _words->end(); ++it, ++i){
 		cout << (*it) << " ";
+	}
+}
+
+string* tnode::getWordsAsArray(){
+	string* wordsArr = new string[_words->size()];
+	list<string>::iterator it;
+	int i = 0;
+	for(it = _words->begin(); it != _words->end(); ++it, ++i){
+		wordsArr[i] = (*it);
 	}
 }
 

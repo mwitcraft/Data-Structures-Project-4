@@ -56,13 +56,25 @@ void ttree::insert(string key){
 			else{ //We need a new level
 				newLevel = new ttree(_maxDepth, _currentDepth + 1);
 				//This right here may cause problems, idk how this is updated throughout
-				list<string> oldWords = (*(_tnodes[index].getWords()));
+				list<string>* oldWords = _tnodes[index].getWords();
+
+				// list<string>::iterator it;
+				// for(it = oldWords->begin(); it != oldWords->end(); ++it){
+				// 	cout << (*it) << endl;
+				// }
+				// cout << "-------------------" << endl;
 
 				//NEED TO WRITE THIS PORTION OF CODE
 				//INSERT CODE HERE TO INSERT EACH WORD IN OLDWORDS IN NEWLEVEL RECURSIVLEY
-				if(!oldWords.empty()){
-					string tempWord = oldWords.front();
-					oldWords.pop_front();
+				while(!oldWords->empty()){
+					string tempWord = oldWords->front();
+					oldWords->pop_front();
+
+				// for(it = oldWords->begin(); it != oldWords->end(); ++it){
+				// 	cout << (*it) << endl;
+				// }
+
+					_tnodes[index].setWords(oldWords);
 					newLevel->insert(tempWord);
 				}
 
@@ -83,11 +95,8 @@ void ttree::display(){
 			}
 			cout << (char)('A' + i) << " ";
 			_tnodes[i].display();
-			// for(int k = 0; k < _tnodes[i].getWords()->size(); ++k){
-			// 	cout << " ";
-			// 	_tnodes[i].display();
-			// }
 			cout << endl;
+
 		}
 		else if(_tnodes[i].getNext() != NULL){
 			for(int j = 0; j < 3 * (_currentDepth - 1); ++j){
