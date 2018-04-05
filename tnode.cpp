@@ -66,8 +66,27 @@ void tnode::find(string key, list<string>* results){
 void tnode::put(string key){
 	if(_words == NULL){
 		_words = new list<string>();
+		_words->push_back(key);
 	}
-	_words->push_back(key);
+
+	if(key < _words->front()){
+		_words->push_front(key);
+	}
+	else if(key > _words->back()){
+		_words->push_back(key);
+	}
+	else{
+		list<string>::iterator it = _words->begin();
+		while(it != _words->end()){
+			string low = (*it);
+			++it;
+			string high = (*it);
+			if(key > low && key < high){
+				_words->insert(it, key);
+			}
+		}
+	}	
+	
 }
 
 bool tnode::insert(string key, int level){
