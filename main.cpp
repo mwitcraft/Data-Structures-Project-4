@@ -31,22 +31,16 @@ int main(){
 				// cout << "D" << endl;
 				// cout << "----------------------" << endl;
 				myTree->display();
+				cout << endl;
 				break;
 			}
 		}
 		cin >> command;
 	}
-	// myTree->insert("SEAGULLS");
-	// myTree->insert("STORMY");
-	// myTree->insert("SEARCH");
-	// // myTree->insert("STOMBURG");
-	// myTree->display();
-	// myTree->search("SEAGULLSs");
-	// cout << endl;
-	// myTree->display();
-	// myTree->search("ST");
-	// myTree->insert("XZZZZ");
-	// // myTree->insert("ARSENIC");
 
+	// myTree->insert("STILLWHISPER");
+	// myTree->insert("STILLPINE");
+	// // myTree->display();
+	// myTree->insert("STILLWATER");
 	// myTree->display();
 }
