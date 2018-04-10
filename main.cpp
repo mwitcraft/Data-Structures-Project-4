@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "ttree.cpp"
+#include "ttree.h"
 using namespace std;
 
 int main(){
@@ -21,8 +21,10 @@ int main(){
 			}
 			case('S'):{
 				cin >> input;
-				cout << "Search: " << input << endl;
-				cout << "S: " << input << endl;				
+				myTree->search(input);
+				cout << '\n' << endl;
+				// cout << "Search: " << input << endl;
+				// cout << "S: " << input << endl;				
 				break;
 			}
 			case('D'):{
@@ -34,8 +36,15 @@ int main(){
 		}
 		cin >> command;
 	}
-	// myTree->insert("XXXXX");
-	// myTree->insert("XYYYY");
+	// myTree->insert("SEAGULLS");
+	// myTree->insert("STORMY");
+	// myTree->insert("SEARCH");
+	// // myTree->insert("STOMBURG");
+	// myTree->display();
+	// myTree->search("SEAGULLSs");
+	// cout << endl;
+	// myTree->display();
+	// myTree->search("ST");
 	// myTree->insert("XZZZZ");
 	// // myTree->insert("ARSENIC");
 
