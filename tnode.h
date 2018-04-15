@@ -1,7 +1,6 @@
 #include <iostream>
 #include <list>
 #include <string>
-// #include "ttree.cpp"
 using namespace std;
 
 class ttree;
@@ -20,7 +19,6 @@ public:
 	friend ostream& operator<<(ostream& os, ttree& tt);
 	ttree* getNext();
 	list<string>* getWords();
-	// void find(string key, list<string>* results);
 	void find(string key, int depth);
 
 	void put(string key);
@@ -31,13 +29,7 @@ public:
 	void operator=(tnode& tn);
 	string operator[](int index);
 
-
-
-
-
-	//MY SHIT
 	void display();
-	string* getWordsAsArray();
 
 };
 
@@ -53,7 +45,12 @@ tnode::tnode(tnode& tn){
 }
 
 tnode::~tnode(){
-	
+	if(_nextLevel != NULL){
+		_nextLevel = NULL;
+	}
+	if(_words != NULL){
+		_words = NULL;
+	}
 }
 
 ttree* tnode::getNext(){
@@ -64,11 +61,13 @@ list<string>* tnode::getWords(){
 	return _words;
 }
 
+//Finds and prints out words at node if it matches key up to certain depth
 void tnode::find(string key, int depth){
 	list<string>* results;
 	list<string>::iterator it;
 
-	//_nextLevel == NULL
+	//If the node contains a word or words that match the key up to a certain depth,
+	//then that word is added to the results list 
 	if(key.size() > 0){
 		results = new list<string>();
 		if(_words != NULL){
@@ -79,12 +78,15 @@ void tnode::find(string key, int depth){
 			}			
 		}
 	}
+	//if there is no key, then all words in the node are added to results
 	else{
 		results = _words;
 	}
+	//if results is empty
 	if(results->size() == 0){
 		cout << "not found";
 	}
+	//Prints out all words in results
 	else{
 		for(it = results->begin(); it != results->end(); ++it){
 			cout << *it << " ";
@@ -93,11 +95,14 @@ void tnode::find(string key, int depth){
 }
 
 void tnode::put(string key){
+	//If _words is empty, then _words is initialized and key is placed in it
 	if(_words == NULL){
 		_words = new list<string>();
 		_words->push_back(key);
 	}
 
+	//This chunk places the key in _words while keeping everything in alphabetical order,
+	//using a binary search algorithm if necessary
 	if(key < _words->front()){
 		_words->push_front(key);
 	}
@@ -118,6 +123,7 @@ void tnode::put(string key){
 	}	
 }
 
+//Same thing as put, except checks to see if key belongs in the node
 bool tnode::insert(string key, int level){
 	if(_words == NULL){
 		_words = new list<string>();
@@ -125,6 +131,8 @@ bool tnode::insert(string key, int level){
 		return true;
 	}
 
+	//if the key does not match the words in the node up to the current level,
+	//it returns false
 	list<string>::iterator it;
 	for(it = _words->begin(); it != _words->end(); ++it){
 		string compWord = (*it);
@@ -160,13 +168,6 @@ void tnode::setNext(ttree* nextLevel){
 
 void tnode::setWords(list<string>* words){
 	_words = words;
-	// if(words == NULL){
-	// 	return;
-	// }
-	// list<string>::iterator it;
-	// for(it = words.begin(); it != words.end(); ++it){
-	// 	_words->push_back((*it));
-	// }
 }
 
 void tnode::operator=(tnode& tn){
@@ -179,6 +180,7 @@ string tnode::operator[](int index){
 	return (*it);
 }
 
+//Prints out the words in the node
 void tnode::display(){
 	if(_words == NULL){
 		cout << "NULL" << endl;
@@ -192,25 +194,6 @@ void tnode::display(){
 		cout << (*it) << " ";
 	}
 }
-
-string* tnode::getWordsAsArray(){
-	string* wordsArr = new string[_words->size()];
-	list<string>::iterator it;
-	int i = 0;
-	for(it = _words->begin(); it != _words->end(); ++it, ++i){
-		wordsArr[i] = (*it);
-	}
-}
-
-// int main(){
-// 	tnode* myNode = new tnode();
-
-// 	myNode->insert("BLACK", 5);
-// 	myNode->insert("BLACKIRON", 5);
-// 	myNode->insert("BLACKSMITH", 5);
-// 	myNode->insert("BLA", 5);
-// 	myNode->display();
-// }
 
 
 

@@ -10,37 +10,29 @@ int main(){
 	char command;
 	string input;
 
+	//Reads commands from text file and executes it
 	cin >> command;
 	while(!cin.eof()){
 		switch(command){
 			case('I'):{
 				cin >> input;
-				// cout << "I: " << input << endl;
 				myTree->insert(input);
 				break;
 			}
 			case('S'):{
 				cin >> input;
 				myTree->search(input);
-				cout << '\n' << endl;
-				// cout << "Search: " << input << endl;
-				// cout << "S: " << input << endl;				
+				//Here for correct formatting
+				cout << '\n' << endl;			
 				break;
 			}
 			case('D'):{
-				// cout << "D" << endl;
-				// cout << "----------------------" << endl;
 				myTree->display();
+				//Correct formatting
 				cout << endl;
 				break;
 			}
 		}
 		cin >> command;
 	}
-
-	// myTree->insert("STILLWHISPER");
-	// myTree->insert("STILLPINE");
-	// // myTree->display();
-	// myTree->insert("STILLWATER");
-	// myTree->display();
 }

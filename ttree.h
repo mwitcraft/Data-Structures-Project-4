@@ -20,14 +20,8 @@ public:
 	void search(string key); //Search for 'key' in the tree and print out all matches
 
 	//ostream operator and other methods
-	list<string>* getSubsequent(list<string>* results);
 
-
-	//MY SHIT
 	void display();
-	tnode* getTnodes(){
-		return _tnodes;
-	}
 };
 
 ttree::ttree(){
@@ -40,6 +34,12 @@ ttree::ttree(int maxDepth, int currentDepth){
 	_tnodes = new tnode[26];
 	_maxDepth = maxDepth;
 	_currentDepth = currentDepth;
+}
+
+ttree::~ttree(){
+	if (_tnodes != NULL){
+		_tnodes = NULL;
+	}
 }
 
 void ttree::insert(string key){
@@ -59,26 +59,18 @@ void ttree::insert(string key){
 			}
 			else{ //We need a new level
 				newLevel = new ttree(_maxDepth, _currentDepth + 1);
-				//This right here may cause problems, idk how this is updated throughout
+				//Store words from current tnode in temp list
 				list<string>* oldWords = _tnodes[index].getWords();
 
-				// list<string>::iterator it;
-				// for(it = oldWords->begin(); it != oldWords->end(); ++it){
-				// 	cout << (*it) << endl;
-				// }
-				// cout << "-------------------" << endl;
-
-				//NEED TO WRITE THIS PORTION OF CODE
 				//INSERT CODE HERE TO INSERT EACH WORD IN OLDWORDS IN NEWLEVEL RECURSIVLEY
 				while(!oldWords->empty()){
+					//Set temp variable to first element in oldWords
 					string tempWord = oldWords->front();
+					//Delete first element in oldWords
 					oldWords->pop_front();
-
-				// for(it = oldWords->begin(); it != oldWords->end(); ++it){
-				// 	cout << (*it) << endl;
-				// }
-
+					//After popping element, set current tnode's words to oldWords
 					_tnodes[index].setWords(oldWords);
+					//Insert the tempWord into the newLevel
 					newLevel->insert(tempWord);
 				}
 
@@ -92,23 +84,28 @@ void ttree::insert(string key){
 }
 
 void ttree::search(string key){
-	// cout << "KEY: " << key << endl;
 	if(key.size() != 0){
 		int index = key[0] - 'A';
+		//If current tnode does not have a next level
 		if(_tnodes[index].getNext() == NULL){
-			// cout << "DEPTH: " << _currentDepth << endl;
+			//We will call find on the current tnode
 			_tnodes[index].find(key, _currentDepth - 1);
 			return;
 		}
+		//If current tnode does have a next level 
+		//Then we erase the first letter and call search again
 		key = key.erase(0, 1);
 		_tnodes[index].getNext()->search(key);
-//		tnode node = _tnodes[index];
 	}
+	//key size == 0
 	else{
+		//Step through each node in _tnodes
 		for(int i = 0; i < 26; ++i){
+			//If words are present in that node, then call find on the node
 			if(_tnodes[i].getWords() != NULL){
 				_tnodes[i].find(key, _currentDepth - 1);
 			}
+			//If the current node has a next level, call search on that level
 			else if(_tnodes[i].getNext() != NULL){
 				_tnodes[i].getNext()->search(key);
 			}
@@ -116,46 +113,31 @@ void ttree::search(string key){
 	}
 }
 
-list<string>* getSubsequent(list<string>* results){
-
-}
-
 void ttree::display(){
+	//Step through each node in _tnodes
 	for(int i = 0; i < 26; ++i){
+		//if current node has words in it, add 3 * currentDepth - 1 spaces
 		if(_tnodes[i].getWords() != NULL){
 			for(int j = 0; j < 3 * (_currentDepth - 1); ++j){
 				cout << " ";
 			}
+			//Print out the letter corresponding to the current node
 			cout << (char)('A' + i) << " ";
+			//Print out words at that node
 			_tnodes[i].display();
 			cout << endl;
 
 		}
+		//if the current node has a next level
 		else if(_tnodes[i].getNext() != NULL){
+			//Add 3 * currentDepth - 1 spaces for formatting
 			for(int j = 0; j < 3 * (_currentDepth - 1); ++j){
 				cout << " ";
 			}
+			//Print out corresponding letter
 			cout << (char)('A' + i) << endl;
+			//Call display on the nextLevel
 			_tnodes[i].getNext()->display();
 		}
 	}
-
-
-
-
-	// for(int i = 0; i < 26; ++i){
-	// 	char c = i + 'A';
-	// 	if(_tnodes[i].getWords() == NULL){
-	// 		if(_tnodes[i].getNext() != NULL){
-	// 			_tnodes[i].getNext()->display();
-	// 		}
-	// 		else{
-	// 			cout << c << ": NULL" << endl;
-	// 		}
-	// 	}
-	// 	else{
-	// 		cout << c << ": ";
-	// 		_tnodes[i].display();
-	// 	}
-	// }
 }
